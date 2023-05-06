@@ -6,6 +6,8 @@ import cors from 'cors'
 import cookieParser from 'cookie-parser'
 import adminRoutes from './routes/adminRoutes.js'
 import customerRoutes from './routes/customerRoutes.js'
+import productRoutes from './routes/productRoutes.js'
+import queriesRoutes from './routes/queriesRoutes.js'
 
 
 dotenv.config()
@@ -30,6 +32,8 @@ app.get('/', (req, res) => {
 
 app.use('/api/admin', adminRoutes)
 app.use('/api/customer', customerRoutes)
+app.use('/api/product', productRoutes)
+app.use('/api/query', queriesRoutes)
 
 const PORT = 5000
 app.listen(PORT, console.log(`Server is running on port ${PORT}`))

@@ -8,12 +8,12 @@ const router = express.Router();
 router.post('/addQuery', asyncHandler(async (req, res) => {
     const { user, query, product } = req.body;
     try {
-        const query = await Query.create({
+        const queryy = await Query.create({
             user,
             query,
             product,
         })
-        if (query) {
+        if (queryy) {
             res.status(201).json({ message: "Query added successfully" })
         } else {
             res.status(400).json({ message: "Invalid query data" })
