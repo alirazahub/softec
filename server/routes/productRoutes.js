@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler'
 import Product from '../models/productModel.js';
 import { verifyCustomer } from '../middleware/verifyCustomer.js';
 import Customer from '../models/customerModel.js';
+import { ObjectId } from 'mongodb';
 
 const router = express.Router();
 
@@ -29,6 +30,18 @@ router.post('/addProduct', asyncHandler(async (req, res) => {
         res.status(400).json({ message: error.message })
     }
 }))
+
+// deleting a product
+router.delete('/deleteProduct/:prodId', asyncHandler(async (req, res) => {
+    const prodId = req.params.prodId;
+    try {
+        await Product.deleteOne({ _id: prodId })
+        res.status(200).json({ message: "Product deleted successfully" })
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}))
+
 
 // adding revwing and rating to a product
 router.post('/addReview/:prodId', verifyCustomer, asyncHandler(async (req, res) => {
@@ -85,6 +98,41 @@ router.get('/getAllProducts', verifyCustomer, asyncHandler(async (req, res) => {
             res.status(200).json(productsWithRating)
         } else {
             res.status(400).json({ message: "No products found" })
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}))
+
+
+// add to wishlist if not already added and remove from wishlist if already added
+router.post('/addToWishlist/:prodId', verifyCustomer, asyncHandler(async (req, res) => {
+    const prodId = req.params.prodId;
+    try {
+        const product = await Product.findById(prodId)
+        if (product) {
+            const user = await Customer.findById(req.user.id)
+            if (user) {
+                const wishlist = user.wishlist;
+                function checkIfExists(id) {
+                    const objectId = new ObjectId(id);
+                    const result = wishlist.find(item => item._id.equals(objectId));
+                    return Boolean(result);
+                }
+                const exists = checkIfExists(prodId);
+                if (exists) {
+                    const index = user.wishlist.indexOf(prodId)
+                    user.wishlist.splice(index, 1)
+                    await user.save()
+                    res.status(200).json({ message: "Removed from wishlist" })
+                } else {
+                    user.wishlist.push(prodId)
+                    await user.save()
+                    res.status(200).json({ message: "Added to wishlist" })
+                }
+            }
+        } else {
+            res.status(400).json({ message: "No product found" })
         }
     } catch (error) {
         res.status(400).json({ message: error.message })
