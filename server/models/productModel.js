@@ -5,7 +5,7 @@ const productSchema = mongoose.Schema({
         required: true
     },
     stock: {
-        type: String,
+        type: Number,
         required: true,
     },
     description: {
@@ -25,7 +25,20 @@ const productSchema = mongoose.Schema({
     },
     minimumAge:{
         type: String,
-    }
+    },
+    reviews: [{
+        user:{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        },
+        review: {
+            type: String,
+        },
+        rating: {
+            type: Number,
+        }
+            
+    }],
 }, {
     timestamps: true
 }

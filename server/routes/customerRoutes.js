@@ -41,7 +41,7 @@ router.post(
                 password
             })
             if (user) {
-                const customerToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET_ADMIN, {
+                const customerToken = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
                     expiresIn: '30d'
                 })
                 res.cookie('customerToken', customerToken, {
