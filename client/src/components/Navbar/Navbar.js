@@ -1,12 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
-import { Link } from 'react-router-dom';
+import { Link,useLocation,useNavigate } from 'react-router-dom';
+
 
 
 export default function Navbar() {
 
     const [search, setSearch] = useState('');
+    const [signRet, setSign] = useState('');
+    const location = useLocation();
+    const navigate = useNavigate();
 
+    useEffect(() => {
+        const signRet =()=>{
+            if (location.pathname === '/login') {
+                setSign("d-none")
+            }
+        }
+        signRet()
+    }, [location]);
 
 
     return (
@@ -31,7 +43,7 @@ export default function Navbar() {
                         </li>
                     </ul>
                 </div>
-                <button type="button" class="btn btn-danger fw-bold">Sign In</button>
+                {<Link to={"/login"} class={`btn btn-danger fw-bold ${signRet}`}>Sign In</Link>}
             </nav>
         </div>
     )

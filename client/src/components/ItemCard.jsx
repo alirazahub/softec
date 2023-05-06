@@ -22,7 +22,7 @@ function ItemCard({ item }) {
                 <Meta title={item.title} />
                 <div className="fs-6 fw-bold my-2">{item.price} PKR</div>
                 {hovered && (
-                    <div className="d-flex justify-content-between" style={{position:"absolute",marginTop:30}}>
+                    <div className="d-flex justify-content-between" style={{zIndex:9999,position:"absolute",marginTop:30}}>
                         <button
                             type="button"
                             className="btn btn-primary btn-sm my-2"

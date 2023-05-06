@@ -9,7 +9,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: #240046;
+    background-color: #171c24;
     max-height: 525px;
     overflow: hidden;
     border-radius: 12px;
@@ -73,7 +73,7 @@ label {
 }
 
 .register label {
-    color: #573b8a;
+    color: #171c24;
     transform: scale(.6);
 }
 
@@ -97,15 +97,37 @@ label {
     height: 40px;
     margin: 12px auto 10%;
     color: #fff;
-    background: #573b8a;
+    background: #171c24;
     font-size: 1rem;
+    border: 1px solid #171c24;
     font-weight: bold;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: .2s ease-in;
 }
+.form .lgBtn{
+    width: 85%;
+    height: 40px;
+    margin: 12px auto 10%;
+    color: #171c24;
+    background: #fff;
+    font-size: 1rem;
+    border: 1px solid #171c24;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: .2s ease-in;
+}
+.form .lgBtn:hover{
+    background-color: #171c24;
+    color: #fff;
+    border: 1px solid #fff;
+}
 
 .form button:hover {
-    background-color: #6d44b8;
+    background-color: #fff;
+    color: #171c24;
+    border: 1px solid #171c24;
 }

@@ -6,22 +6,27 @@ import "./components/Dashboard/Dashboard.css"
 import AppHeader from "./components/Dashboard/AppHeader.js";
 import AdminSideMenu from "./components/Dashboard/AdminSideMenu";
 import PageContent from "./components/Dashboard/PageContent";
+import { Route, Routes } from 'react-router-dom'
+import SignUp from './Pages/SignupClient/SignUp'
 const App = () => {
   let isAdmin = true
   return (
     <>
       {isAdmin ? (
-        <div>
+        <>
           <div className='d-flex flex-column h-100'>
             <Navbar />
           </div>
 
           <div className='container' style={{ marginTop: 100 }}>
-            <Home />
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/login' element={<SignUp />} />
+            </Routes>
           </div>
-
           <Footer />
-        </div>
+        </>
+
       ) : (<div className="App">
         <AppHeader />
         <div className="SideMenuAndPageContent">
