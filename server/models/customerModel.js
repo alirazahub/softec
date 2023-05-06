@@ -32,6 +32,7 @@ const customerSchema = mongoose.Schema({
         ],
         orderStatus: {
             type: String,
+            default: 'pending'
         },
         orderDate: {
             type: String,
