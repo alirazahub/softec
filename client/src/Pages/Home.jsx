@@ -7,6 +7,8 @@ function Home() {
         <div className='container'>
             <div className='d-flex flex-wrap'>
                 {cardsData.map((item) => <ItemCard key={item.id} item={item} />)}
+                {cardsData.map((item) => <ItemCard key={item.id} item={item} />)}
+                {cardsData.map((item) => <ItemCard key={item.id} item={item} />)}
             </div>
         </div>
 

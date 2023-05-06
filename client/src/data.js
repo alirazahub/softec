@@ -19,3 +19,5 @@ let cardsData = [
         ]
     }
 ]
+
+export { cardsData }
