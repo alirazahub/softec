@@ -1,12 +1,13 @@
 import React from 'react'
-import ItemCard from './components/ItemCard'
+import Home from './Pages/Home'
+
 
 const App = () => {
   return (
     <div>
-
-      <ItemCard />
+      <Home />
     </div>
+
   )
 }
 

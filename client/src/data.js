@@ -15,3 +15,5 @@ let cardsData = [
         price: 2000,
     },
 ]
+
+export { cardsData }
