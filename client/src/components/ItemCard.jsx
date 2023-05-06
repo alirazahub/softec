@@ -11,7 +11,9 @@ function ItemCard({ item }) {
         <div className="m-2">
             <Card
                 hoverable
-                style={{ width: 240 }}
+                style={{
+                    width: 240
+                }}
                 cover={<img alt="example" src={item.img} />}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}

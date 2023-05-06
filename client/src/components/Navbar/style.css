@@ -22,6 +22,7 @@
     display: flex;
     align-items: center;
 }
+
 .customnav .content .links {
     margin-left: 80px;
     display: flex;
@@ -244,7 +245,7 @@
         background: none;
         max-height: 0px;
         overflow: hidden;
-        padding: 0!important;
+        padding: 0 !important;
     }
 
     .content .links #show-features:checked~ul,
