@@ -1,0 +1,66 @@
+.procductContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-top: 80px;
+    margin-bottom: 50px;
+    width: 90%;
+    gap: 80px;
+}
+.procductContainer .productImage{
+    width: 300px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.procductContainer .productImage img{
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+}
+.procductContainer .productInfo{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+
+}
+.btn_div{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+}
+.rating{
+    display: flex;
+    gap:3px;
+}
+
+.reviewsComment{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+.reviewsComment .review{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    width: 100%;
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+.reviewsComment .review p{
+    margin-left: 30px;
+}
