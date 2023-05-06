@@ -22,7 +22,6 @@ nav .content {
     display: flex;
     align-items: center;
 }
-
 nav .content .links {
     margin-left: 80px;
     display: flex;

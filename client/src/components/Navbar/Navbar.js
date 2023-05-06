@@ -16,38 +16,38 @@ export default function Navbar() {
                 <input type="checkbox" id="show-menu" />
                 <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
                 <div class="content">
-                    <div class="logo"><Link to={'/'}>Blogpurr</Link></div>
+                    <div class="logo" ><a href="#" style={{textDecoration:'none'}}>Navbar</a></div>
                     <ul class="links">
-                        <li><Link to={'/'}>Home</Link></li>
-                        <li><Link to={'/'}>About</Link></li>
+                        <li><a href="#" style={{textDecoration:'none'}}>Home</a></li>
+                        <li><a href="#" style={{textDecoration:'none'}}>About</a></li>
                         <li>
-                            <Link to={''} class="desktop-link">Categories</Link>
+                            <a href="#" class="desktop-link">Features</a>
                             <input type="checkbox" id="show-features" />
-                            <label for="show-features">Categories</label>
+                            <label for="show-features">Features</label>
                             <ul>
-                                <li><Link to={'/'}>Personal Blog</Link></li>
+                                <li><a href="#" style={{textDecoration:'none'}}>Drop Menu 1</a></li>
+                                <li><a href="#" style={{textDecoration:'none'}}>Drop Menu 2</a></li>
+                                <li><a href="#" style={{textDecoration:'none'}}>Drop Menu 3</a></li>
+                                <li><a href="#" style={{textDecoration:'none'}}>Drop Menu 4</a></li>
                             </ul>
                         </li>
                         <li>
-                            <Link to={''} class="desktop-link">Services</Link>
+                            <a href="#" class="desktop-link " style={{textDecoration:'none'}}>Services</a>
                             <input type="checkbox" id="show-services" />
                             <label for="show-services">Services</label>
                             <ul>
-                                <li><Link to={'/'}>Blog posts</Link></li>
-                                <li><Link to={'/'}>Product reviews</Link></li>
+                                <li><a href="#" style={{textDecoration:'none'}}>Drop Menu 1</a></li>
+                                <li><a href="#" style={{textDecoration:'none'}}>Drop Menu 2</a></li>
+                                <li><a href="#" style={{textDecoration:'none'}}>Drop Menu 3</a></li>
                             </ul>
                         </li>
-
+                        <li><a href="#" style={{textDecoration:'none'}}>Feedback</a></li>
                     </ul>
                 </div>
                 <label for="show-search" class="search-icon"><i class="fas fa-search"></i></label>
                 <form action="#" class="search-box">
-                    <input type="text" placeholder="Type Something to Search..." value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        required style={{ marginTop: -5 }} />
-                    <button
-
-                        type="submit" class="go-icon"><i class="fas fa-long-arrow-alt-right"></i></button>
+                    <input type="text" placeholder="Type Something to Search..." required />
+                    <button type="submit" class="go-icon"><i class="fas fa-long-arrow-alt-right"></i></button>
                 </form>
             </nav>
         </div>
