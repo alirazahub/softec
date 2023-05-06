@@ -16,7 +16,7 @@ export default function Navbar() {
                 <input type="checkbox" id="show-menu" />
                 <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
                 <div class="content">
-                    <div class="logo" ><a href="#" style={{ textDecoration: 'none' }}>Navbar</a></div>
+                    <div class="logo" ><a href="#" style={{ textDecoration: 'none' }}>Gaming Titans</a></div>
                     <ul class="links">
                         <li><a href="#" style={{ textDecoration: 'none' }}>Home</a></li>
                         <li><a href="#" style={{ textDecoration: 'none' }}>About</a></li>
