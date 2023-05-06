@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './style.css';
 import { Link } from 'react-router-dom';
+import { FaShoppingCart } from 'react-icons/fa';
 
 
 export default function Navbar() {
@@ -32,6 +33,9 @@ export default function Navbar() {
                     </ul>
                 </div>
                 <button type="button" class="btn btn-danger fw-bold">Sign In</button>
+                {/* <span className="text-white">
+                    0 <FaShoppingCart className='fs-5 text-danger' />
+                </span> */}
             </nav>
         </div>
     )
