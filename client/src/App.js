@@ -4,6 +4,7 @@ import ItemCard from './components/ItemCard'
 const App = () => {
   return (
     <div>
+
       <ItemCard />
     </div>
   )
