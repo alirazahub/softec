@@ -15,7 +15,7 @@
     margin: 0 auto;
     height: 70px;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .customnav .content {
@@ -24,6 +24,7 @@
 }
 
 .customnav .content .links {
+    margin-top: 20px;
     margin-left: 80px;
     display: flex;
 }

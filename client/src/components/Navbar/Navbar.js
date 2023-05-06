@@ -19,7 +19,6 @@ export default function Navbar() {
                     <div class="logo" ><a href="#" style={{ textDecoration: 'none' }}>Gaming Titans</a></div>
                     <ul class="links">
                         <li><a href="#" style={{ textDecoration: 'none' }}>Home</a></li>
-                        <li><a href="#" style={{ textDecoration: 'none' }}>About</a></li>
                         <li>
                             <a href="#" class="desktop-link" style={{ textDecoration: 'none' }}>Features</a>
                             <input type="checkbox" id="show-features" />
@@ -28,27 +27,11 @@ export default function Navbar() {
                                 <li><a href="#" style={{ textDecoration: 'none' }}>Drop Menu 1</a></li>
                                 <li><a href="#" style={{ textDecoration: 'none' }}>Drop Menu 2</a></li>
                                 <li><a href="#" style={{ textDecoration: 'none' }}>Drop Menu 3</a></li>
-                                <li><a href="#" style={{ textDecoration: 'none' }}>Drop Menu 4</a></li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="#" class="desktop-link " style={{ textDecoration: 'none' }}>Services</a>
-                            <input type="checkbox" id="show-services" />
-                            <label for="show-services">Services</label>
-                            <ul>
-                                <li><a href="#" style={{ textDecoration: 'none' }}>Drop Menu 1</a></li>
-                                <li><a href="#" style={{ textDecoration: 'none' }}>Drop Menu 2</a></li>
-                                <li><a href="#" style={{ textDecoration: 'none' }}>Drop Menu 3</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#" style={{ textDecoration: 'none' }}>Feedback</a></li>
                     </ul>
                 </div>
-                <label for="show-search" class="search-icon"><i class="fas fa-search"></i></label>
-                <form action="#" class="search-box">
-                    <input type="text" placeholder="Type Something to Search..." required />
-                    <button type="submit" class="go-icon"><i class="fas fa-long-arrow-alt-right"></i></button>
-                </form>
+                <button type="button" class="btn btn-danger fw-bold">Sign In</button>
             </nav>
         </div>
     )
