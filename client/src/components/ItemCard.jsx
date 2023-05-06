@@ -12,7 +12,8 @@ function ItemCard({ item }) {
             <Card
                 hoverable
                 style={{
-                    width: 240
+                    width: 240,
+                    height:460
                 }}
                 cover={<img alt="example" src={item.img} />}
                 onMouseEnter={() => setHovered(true)}
@@ -21,7 +22,7 @@ function ItemCard({ item }) {
                 <Meta title={item.title} />
                 <div className="fs-6 fw-bold my-2">{item.price} PKR</div>
                 {hovered && (
-                    <div className="d-flex justify-content-between">
+                    <div className="d-flex justify-content-between" style={{position:"absolute",marginTop:30}}>
                         <button
                             type="button"
                             className="btn btn-primary btn-sm my-2"
@@ -29,7 +30,7 @@ function ItemCard({ item }) {
                             Add to Cart
                         </button>
 
-                        <div >
+                        <div style={{marginLeft:70}}>
                             <FaHeart className="text-danger fs-5 mt-3" />
                         </div>
                     </div>

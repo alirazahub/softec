@@ -1,0 +1,61 @@
+.dashboard-layout {
+    min-height: 100vh;
+}
+
+.dashboard-content {
+    padding: 24px;
+    background-color: #f0f2f5;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.dashboard-card {
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    
+}
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.dashboard-card-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+}
+
+.dashboard-card-icon {
+    font-size: 24px;
+    color: #1890ff;
+}
+
+.dashboard-card-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.dashboard-card-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.dashboard-card-value {
+    font-size: 32px;
+    font-weight: bold;
+    color: #1890ff;
+}
+
+.dashboard-card-dropdowns {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
