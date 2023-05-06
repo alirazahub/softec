@@ -10,8 +10,8 @@ export default function Navbar() {
 
 
     return (
-        <div class="wrapper">
-            <nav>
+        <div class="wrapperImp">
+            <nav className='customnav'> 
                 <input type="checkbox" id="show-search" />
                 <input type="checkbox" id="show-menu" />
                 <label for="show-menu" class="menu-icon"><i class="fas fa-bars"></i></label>
@@ -21,7 +21,7 @@ export default function Navbar() {
                         <li><a href="#" style={{textDecoration:'none'}}>Home</a></li>
                         <li><a href="#" style={{textDecoration:'none'}}>About</a></li>
                         <li>
-                            <a href="#" class="desktop-link">Features</a>
+                            <a href="#" class="desktop-link" style={{textDecoration:'none'}}>Features</a>
                             <input type="checkbox" id="show-features" />
                             <label for="show-features">Features</label>
                             <ul>
