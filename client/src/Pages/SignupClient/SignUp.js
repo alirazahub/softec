@@ -24,39 +24,63 @@ export default function SignUp() {
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
     const [form] = Form.useForm();
 
+    const handleLogin = async () => {
+
+        // const values = {
+        //     email: emailLogin,
+        //     password: passwordLogin
+        // }
+        // try {
+        //     const res = await axios.post(`${url}/api/customer/login`, values)
+        //     console.log(res)
+        //     localStorage.setItem('token', res.data.token)
+        //     localStorage.setItem('user', JSON.stringify(res.data.user))
+        //     window.location.href = '/'
+        // } catch (error) {
+        //     console.log(error)
+        //     notification.error({
+        //         message: 'Error',
+        //         description: error.message,
+        //         placement: 'bottomRight'
+        //     })
+        // }
+    }
+
     const handleRegister = async () => {
 
-        // try {
-        //     const values = await form.validateFields();
-        //     alert(values);
-
-        // } catch (error) {
-        //     alert(error);
-        // }
-
-        const values = {
-            name: name,
-            email: email,
-            password: password,
-            dob: dob,
-            gender: gender,
-        }
-
         try {
-            await axios.post(`${url}/api/customer/addCustomer`, values)
-            notification.success({
-                message: 'Success',
-                description: 'User created successfully',
-                placement: 'bottomRight'
-            })
-        } catch (error) {
-            console.log(error)
-            notification.error({
-                message: 'Error',
-                description: error.message,
-                placement: 'bottomRight'
-            })
+            axios.get(`${url}/api/product/getAllProducts`)
+                .then(res => {
+                    alert(res.data)
+                })
         }
+        catch (err) {
+            console.log(err)
+        }
+
+        //     const values = {
+        //         name: name,
+        //         email: email,
+        //         password: password,
+        //         dob: dob,
+        //         gender: gender,
+        //     }
+
+        //     try {
+        //         await axios.post(`${url}/api/customer/addCustomer`, values)
+        //         notification.success({
+        //             message: 'Success',
+        //             description: 'User created successfully',
+        //             placement: 'bottomRight'
+        //         })
+        //     } catch (error) {
+        //         console.log(error)
+        //         notification.error({
+        //             message: 'Error',
+        //             description: error.message,
+        //             placement: 'bottomRight'
+        //         })
+        //     }
     }
     return (
         <div className="contanier mt-4">
@@ -81,7 +105,7 @@ export default function SignUp() {
                     <label className="text-center" for="chk" aria-hidden="true">Register</label>
                     <Form className="form"
                         form={form}
-                        onFinish={console.log("first")}
+                        onFinish={console.log("onFinish")}
                         scrollToFirstError>
                         <Form.Item
                             label="Name"
@@ -144,7 +168,7 @@ export default function SignUp() {
                             }>
                             <Input.Password style={{ width: 210 }} onChange={(e) => setPassword(e.target.value)} required />
                         </Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button lgBtn" onClick={handleRegister}>
+                        <Button type="primary" className="login-form-button lgBtn" onClick={handleRegister}>
                             Register
                         </Button>
                     </Form>
