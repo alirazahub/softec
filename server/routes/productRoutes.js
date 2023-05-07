@@ -153,5 +153,35 @@ router.post('/addToWishlist/:prodId', verifyCustomer, asyncHandler(async (req, r
     }
 }))
 
+// get all products and ratings
+router.get('/getAllProductsAndRatings', asyncHandler(async (req, res) => {
+    try {
+        const products = await Product.find({})
+        if (products) {
+            const productsWithRating = products.map(product => {
+                return {
+                    _id: product._id,
+                    title: product.title,
+                    stock: product.stock,
+                    description: product.description,
+                    marketPrice: product.marketPrice,
+                    sellingPrice: product.sellingPrice,
+                    image: product.image,
+                    inventory: product.inventory,
+                    minimumAge: product.minimumAge,
+                    rating: product.rating,
+                    numReviews: product.numReviews,
+                    reviews: product.reviews
+                }
+            })
+            res.status(200).json(productsWithRating)
+        } else {
+            res.status(400).json({ message: "No products found" })
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}))
+
 
 export default router;

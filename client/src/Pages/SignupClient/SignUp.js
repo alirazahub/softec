@@ -6,7 +6,7 @@ import { url } from '../../key'
 import axios from 'axios'
 import { useCookies } from 'react-cookie';
 
-export default function SignUp() {
+export default function SignUp({ setIsAdmin, isAdmin }) {
     // eslint-disable-next-line
     const [cookies, setCookie, removeCookie] = useCookies(['customerToken']);
     const nameRef = useRef(null);
@@ -33,21 +33,38 @@ export default function SignUp() {
             email: emailLogin,
             password: passwordLogin
         }
-        try {
-            const res = await axios.post(`${url}/api/customer/login`, values)
-            setCookie('customerToken', res.data.customerToken, { path: '/' });
-            notification.success({
-                message: 'Success',
-                description: 'Login successfully',
-                placement: 'bottomRight'
-            })
-        } catch (error) {
-            console.log(error)
-            notification.error({
-                message: 'Error',
-                description: error.message,
-                placement: 'bottomRight'
-            })
+        if (isAdmin) {
+            try {
+                const res = await axios.post(`${url}/api/admin/login`, values)
+                setCookie('adminToken', res.data.adminToken, { path: '/' });
+                notification.success({
+                    message: 'Success',
+                    description: 'Login successfully',
+                    placement: 'bottomRight'
+                })
+            } catch (error) {
+                notification.error({
+                    message: 'Error',
+                    description: error.message,
+                    placement: 'bottomRight'
+                })
+            }
+        } else {
+            try {
+                const res = await axios.post(`${url}/api/customer/login`, values)
+                setCookie('customerToken', res.data.customerToken, { path: '/' });
+                notification.success({
+                    message: 'Success',
+                    description: 'Login successfully',
+                    placement: 'bottomRight'
+                })
+            } catch (error) {
+                notification.error({
+                    message: 'Error',
+                    description: error.message,
+                    placement: 'bottomRight'
+                })
+            }
         }
     }
     const handleRegister = async () => {
@@ -66,13 +83,15 @@ export default function SignUp() {
                 placement: 'bottomRight'
             })
         } catch (error) {
-            console.log(error)
             notification.error({
                 message: 'Error',
                 description: error.message,
                 placement: 'bottomRight'
             })
         }
+    }
+    const handleCheckChange = (e) => {
+        setIsAdmin(e.target.checked)
     }
     return (
         <div className="contanier mt-4">
@@ -88,6 +107,7 @@ export default function SignUp() {
                         <input className="input" type="password" name="password" placeholder="Password" required=""
                             onChange={(e) => setPasswordLogin(e.target.value)} value={passwordLogin}
                         />
+                        <input type="checkbox" onChange={e => handleCheckChange(e)}></input>
                         <button className='mt-3 lgBtn' type="submit" onClick={handleLogin}
                         >Log in</button>
                     </form>

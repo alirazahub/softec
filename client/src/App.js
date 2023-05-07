@@ -15,7 +15,7 @@ const App = () => {
   // eslint-disable-next-line
   const [cookies, setCookie, removeCookie] = useCookies(['customerToken', 'adminToken']);
   const [customer, setCustomer] = useState({})
-  const [admin, setAdmin] = useState({})
+ const [isAdmin, setIsAdmin] = useState(false)
 
   useEffect(() => {
     const getProfiles = async () => {
@@ -37,7 +37,8 @@ const App = () => {
     }
     getAdminProfiles();
   }, [cookies])
-  let isAdmin = false
+  
+ 
   return (
     <>
       {isAdmin ? (
@@ -49,7 +50,7 @@ const App = () => {
           <div className='container' style={{ marginTop: 100 }}>
             <Routes>
               <Route path='/' element={<Home />} />
-              <Route path='/login' element={<SignUp />} />
+              <Route path='/login' element={<SignUp setIsAdmin={setIsAdmin} />} />
             </Routes>
           </div>
           <Footer />
