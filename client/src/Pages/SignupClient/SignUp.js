@@ -1,4 +1,4 @@
-import React, { useState, useEffect,useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { DatePicker, Form, Input, Button, notification, Select } from 'antd';
 import dayjs from 'dayjs';
 import './signup.css'
@@ -11,11 +11,14 @@ export default function SignUp() {
     const passwordRef = useRef(null);
     const dobRef = useRef(null);
     const genderRef = useRef(null);
-    const [name , setName] = useState('')
-    const [email , setEmail] = useState('')
-    const [password , setPassword] = useState('')
-    const [dob , setDob] = useState('')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [dob, setDob] = useState('')
     const [gender, setGender] = useState('')
+
+    const [emailLogin, setEmailLogin] = useState('')
+    const [passwordLogin, setPasswordLogin] = useState('')
 
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
     const [form] = Form.useForm();
@@ -43,6 +46,30 @@ export default function SignUp() {
         //         placement: 'bottomRight'
         //     })
         // }
+
+        const handleLogin = async () => {
+            const values = {
+                email: emailLogin,
+                password: passwordLogin
+            }
+            console.log(values)
+            try {
+                await axios.post(`${url}/api/customer/login`, values)
+                notification.success({
+                    message: 'Success',
+                    description: 'User logged in successfully',
+                    placement: 'bottomRight'
+                })
+            } catch (error) {
+                console.log(error)
+                notification.error({
+                    message: 'Error',
+                    description: error.message,
+                    placement: 'bottomRight'
+                })
+            }
+        }
+
     }
     return (
         <div className="contanier mt-4">
@@ -52,9 +79,15 @@ export default function SignUp() {
                 <div className="login">
                     <form className="form">
                         <label for="chk" aria-hidden="true">Log in</label>
-                        <input className="input" type="email" name="email" placeholder="Email" required="" />
-                        <input className="input" type="password" name="password" placeholder="Password" required="" />
-                        <button className='mt-3 lgBtn'>Log in</button>
+                        <input className="input" type="email" name="email" placeholder="Email" required=""
+                            onChange={(e) => setEmailLogin(e.target.value)} value={emailLogin}
+                        />
+                        <input className="input" type="password" name="password" placeholder="Password" required=""
+                            onChange={(e) => setPasswordLogin(e.target.value)} value={passwordLogin}
+                        />
+                        <button className='mt-3 lgBtn'
+                            onClick={handleLogin}
+                        >Log in</button>
                     </form>
                 </div>
                 <div className="register">
@@ -69,7 +102,7 @@ export default function SignUp() {
                                 [{ required: true, message: 'Please input your name!' },]
                             }
                         >
-                            <input value={name} onChange={(e)=>setName(e.target.value)} style={{ width: 210 }} type="text" name="name" placeholder="Name" required="" />
+                            <input value={name} onChange={(e) => setName(e.target.value)} style={{ width: 210 }} type="text" name="name" placeholder="Name" required="" />
                         </Form.Item>
                         <Form.Item
                             label="Date of Birth"
@@ -84,11 +117,11 @@ export default function SignUp() {
                             rules={
                                 [{ required: true, message: 'Please input your Gender!' }]
                             }
-                            style={{width: 210}}
-                            >
+                            style={{ width: 210 }}
+                        >
                             <Select
                                 ref={genderRef}
-                                defaultValue="lucy"
+                                defaultValue="Choose Gender"
                                 options={[
                                     {
                                         value: 'Male',
@@ -107,9 +140,9 @@ export default function SignUp() {
                         </Form.Item>
                         <Form.Item
                             label="Email">
-                            <input 
-                            ref={emailRef}
-                            style={{ width: 210 }} type="email" name="email" placeholder="Email" required="" />
+                            <input
+                                ref={emailRef}
+                                style={{ width: 210 }} type="email" name="email" placeholder="Email" required="" />
                         </Form.Item>
                         <Form.Item
                             label="Password"
