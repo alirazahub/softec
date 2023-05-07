@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import './signup.css'
 import { url } from '../../key'
 import axios from 'axios'
+import { json } from 'react-router-dom';
 
 export default function SignUp() {
     const nameRef = useRef(null);
@@ -14,7 +15,7 @@ export default function SignUp() {
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [dob, setDob] = useState('')
+    const [dob, setDob] = useState()
     const [gender, setGender] = useState('')
 
     const [emailLogin, setEmailLogin] = useState('')
@@ -24,52 +25,38 @@ export default function SignUp() {
     const [form] = Form.useForm();
 
     const handleRegister = async () => {
-        const values = {
-            name: nameRef.current.value,
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-            dob: dobRef.current.value,
-        }
-        console.log(values)
+
         // try {
-        //     await axios.post(`${url}/api/customer/addCustomer`, values)
-        //     notification.success({
-        //         message: 'Success',
-        //         description: 'User created successfully',
-        //         placement: 'bottomRight'
-        //     })
+        //     const values = await form.validateFields();
+        //     alert(values);
+
         // } catch (error) {
-        //     console.log(error)
-        //     notification.error({
-        //         message: 'Error',
-        //         description: error.message,
-        //         placement: 'bottomRight'
-        //     })
+        //     alert(error);
         // }
 
-        const handleLogin = async () => {
-            const values = {
-                email: emailLogin,
-                password: passwordLogin
-            }
-            console.log(values)
-            try {
-                await axios.post(`${url}/api/customer/login`, values)
-                notification.success({
-                    message: 'Success',
-                    description: 'User logged in successfully',
-                    placement: 'bottomRight'
-                })
-            } catch (error) {
-                console.log(error)
-                notification.error({
-                    message: 'Error',
-                    description: error.message,
-                    placement: 'bottomRight'
-                })
-            }
+        const values = {
+            name: name,
+            email: email,
+            password: password,
+            dob: dob,
+            gender: gender,
         }
 
+        try {
+            await axios.post(`${url}/api/customer/addCustomer`, values)
+            notification.success({
+                message: 'Success',
+                description: 'User created successfully',
+                placement: 'bottomRight'
+            })
+        } catch (error) {
+            console.log(error)
+            notification.error({
+                message: 'Error',
+                description: error.message,
+                placement: 'bottomRight'
+            })
+        }
     }
     return (
         <div className="contanier mt-4">
@@ -94,7 +81,7 @@ export default function SignUp() {
                     <label className="text-center" for="chk" aria-hidden="true">Register</label>
                     <Form className="form"
                         form={form}
-                        onFinish={handleRegister}
+                        onFinish={console.log("first")}
                         scrollToFirstError>
                         <Form.Item
                             label="Name"
@@ -110,8 +97,12 @@ export default function SignUp() {
                                 [{ required: true, message: 'Please input your Date of birth!' }]
                             }
                         >
-                            <DatePicker ref={dobRef} style={{ width: 210 }} defaultValue={dayjs('01/01/2015', dateFormatList[0])} format={dateFormatList} />
-                        </Form.Item>
+                            <DatePicker
+                                defaultValue={dayjs('01/01/2015', dateFormatList[0])}
+                                format={dateFormatList}
+                                onChange={(value) => { setDob(value) }}
+                                style={{ width: 210 }}
+                            /></Form.Item>
                         <Form.Item
                             label="Gender"
                             rules={
@@ -122,6 +113,7 @@ export default function SignUp() {
                             <Select
                                 ref={genderRef}
                                 defaultValue="Choose Gender"
+                                onSelect={(value) => { setGender(value) }}
                                 options={[
                                     {
                                         value: 'Male',
@@ -142,6 +134,7 @@ export default function SignUp() {
                             label="Email">
                             <input
                                 ref={emailRef}
+                                onChange={(e) => setEmail(e.target.value)}
                                 style={{ width: 210 }} type="email" name="email" placeholder="Email" required="" />
                         </Form.Item>
                         <Form.Item
@@ -149,9 +142,9 @@ export default function SignUp() {
                             rules={
                                 [{ required: true, message: 'Please input your Password!' }]
                             }>
-                            <Input.Password style={{ width: 210 }} required />
+                            <Input.Password style={{ width: 210 }} onChange={(e) => setPassword(e.target.value)} required />
                         </Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button lgBtn">
+                        <Button type="primary" htmlType="submit" className="login-form-button lgBtn" onClick={handleRegister}>
                             Register
                         </Button>
                     </Form>
