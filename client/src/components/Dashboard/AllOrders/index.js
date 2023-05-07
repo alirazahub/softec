@@ -1,17 +1,22 @@
 import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
-import { getInventory, getOrders } from "../../API";
 
 function Orders() {
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    getOrders().then((res) => {
-      setDataSource(res.products);
-      setLoading(false);
-    });
+      setDataSource([
+        {
+          key: "1",
+          title: "Mike",
+          price: 32,
+          discountedPrice: 10,
+          quantity: 10,
+          total: 320,
+
+        },
+      ]);
   }, []);
 
   return (
