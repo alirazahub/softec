@@ -9,7 +9,7 @@ import PageContent from "./components/Dashboard/PageContent";
 import { Route, Routes } from 'react-router-dom'
 import SignUp from './Pages/SignupClient/SignUp'
 const App = () => {
-  let isAdmin = true
+  let isAdmin = false
   return (
     <>
       {isAdmin ? (

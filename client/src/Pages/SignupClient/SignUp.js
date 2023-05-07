@@ -22,10 +22,7 @@ export default function SignUp() {
 
     const handleRegister = async () => {
         const values = {
-            name: nameRef.current.value,
-            email: emailRef.current.value,
-            password: passwordRef.current.value,
-            dob: dobRef.current.value,
+            
         }
         console.log(values)
         // try {
