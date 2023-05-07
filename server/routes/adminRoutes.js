@@ -2,6 +2,7 @@ import express from 'express'
 import asyncHandler from 'express-async-handler'
 import jwt from 'jsonwebtoken'
 import Admin from '../models/adminModel.js'
+import { verifyAdmin } from '../middleware/verifyAdmin.js'
 
 const router = express.Router();
 
@@ -55,5 +56,12 @@ router.post(
     })
 )
 
-
+router.get('/profile',verifyAdmin, asyncHandler(async (req, res) => {
+    const customer = await Admin.findById(req.customer.id);
+    if (customer) {
+        res.status(200).json({ customer })
+    } else {
+        res.status(400).json({ message: "Customer not found" })
+    }
+}))
 export default router;

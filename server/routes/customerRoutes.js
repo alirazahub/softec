@@ -98,6 +98,18 @@ router.put('/updateCustomer/:id', asyncHandler(async (req, res) => {
     }
 }))
 
+router.put('/updateStatus/:id', asyncHandler(async (req, res) => {
+    const customer = await Customer.findById(req.params.id);
+    // if the status is active then make it blocked and vice versa
+    if (customer) {
+        customer.status = customer.status === "active" ? "blocked" : "active";
+        const updatedCustomer = await customer.save();
+        res.status(200).json({ message: "Customer updated successfully", updatedCustomer })
+    }
+    else {
+        res.status(400).json({ message: "Customer not found" })
+    }
+}))
 
 router.put('/placeOrder',verifyCustomer ,asyncHandler(async (req, res) => {
     const customer = await Customer.findById(req.customer.id);
@@ -140,6 +152,15 @@ router.put('/addToCart',verifyCustomer ,asyncHandler(async (req, res) => {
     }
 }))
 
+
+router.get('/profile',verifyCustomer, asyncHandler(async (req, res) => {
+    const customer = await Customer.findById(req.customer.id);
+    if (customer) {
+        res.status(200).json({ customer })
+    } else {
+        res.status(400).json({ message: "Customer not found" })
+    }
+}))
 
 
 

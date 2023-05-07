@@ -104,6 +104,20 @@ router.get('/getAllProducts', verifyCustomer, asyncHandler(async (req, res) => {
     }
 }))
 
+// get all products only
+router.get('/getAllProductsOnly', asyncHandler(async (req, res) => {
+    try {
+        const products = await Product.find({})
+        if (products) {
+            res.status(200).json(products)
+        } else {
+            res.status(400).json({ message: "No products found" })
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}))
+
 
 // add to wishlist if not already added and remove from wishlist if already added
 router.post('/addToWishlist/:prodId', verifyCustomer, asyncHandler(async (req, res) => {
@@ -133,6 +147,36 @@ router.post('/addToWishlist/:prodId', verifyCustomer, asyncHandler(async (req, r
             }
         } else {
             res.status(400).json({ message: "No product found" })
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}))
+
+// get all products and ratings
+router.get('/getAllProductsAndRatings', asyncHandler(async (req, res) => {
+    try {
+        const products = await Product.find({})
+        if (products) {
+            const productsWithRating = products.map(product => {
+                return {
+                    _id: product._id,
+                    title: product.title,
+                    stock: product.stock,
+                    description: product.description,
+                    marketPrice: product.marketPrice,
+                    sellingPrice: product.sellingPrice,
+                    image: product.image,
+                    inventory: product.inventory,
+                    minimumAge: product.minimumAge,
+                    rating: product.rating,
+                    numReviews: product.numReviews,
+                    reviews: product.reviews
+                }
+            })
+            res.status(200).json(productsWithRating)
+        } else {
+            res.status(400).json({ message: "No products found" })
         }
     } catch (error) {
         res.status(400).json({ message: error.message })

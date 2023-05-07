@@ -3,7 +3,28 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { Button, Layout, Modal, notification } from 'antd';
-const url = ""
+import { url } from '../../../key';
+import { Badge } from 'react-bootstrap';
+import { FaExchangeAlt } from 'react-icons/fa';
+
+
+function calculateAge(dateOfBirth) {
+  const [day, month, year] = dateOfBirth.split("/");
+  const birthDate = new Date(year, month - 1, day);
+  const today = new Date();
+
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const monthDiff = today.getMonth() - birthDate.getMonth();
+
+  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+
+  return age;
+}
+
+
+
 const AllUsers = () => {
   // eslint-disable-next-line
   const [cookies, setCookie, removeCookie] = useCookies(['userToken']);
@@ -11,10 +32,11 @@ const AllUsers = () => {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [deleteId, setDeleteId] = useState();
-  const [updateUser, setUpdateUser] = useState()
-  const [fName, setFName] = useState()
-  const [lName, setLName] = useState()
+  const [updateCustomer, setUpdateCustomer] = useState()
+  const [name, setName] = useState()
+  const [gender, setGender] = useState()
   const [email, setEmail] = useState()
+  const [dob, setDob] = useState()
 
   const handleDeleteClick = (id) => {
     setDeleteId(id);
@@ -23,11 +45,7 @@ const AllUsers = () => {
 
   const handleDeleteConfirm = async () => {
 
-    await axios.delete(`${url}/api/users/delete/${deleteId}`, {
-      headers: {
-        'userToken': cookies.userToken
-      }
-    })
+    await axios.delete(`${url}/api/customer/deleteCustomer/${deleteId}`)
       .then(res => {
         notification.success({
           message: 'Success',
@@ -44,29 +62,8 @@ const AllUsers = () => {
     setShowDeleteModal(false);
   };
   const handleEditClick = async (id) => {
-    await axios.get(`${url}/api/users/user/${id}`, {
-      headers: {
-        'userToken': cookies.userToken
-      }
-    }).then(res => {
-      setUpdateUser(res.data.user)
-      setFName(res.data.user.firstName)
-      setLName(res.data.user.lastName)
-      setEmail(res.data.user.email)
-    })
 
-    setShowEditModal(true);
-  };
-  const handleUpdate = async () => { 
-    await axios.put(`${url}/api/users/edit/${updateUser._id}`, {
-      firstName: fName,
-      lastName: lName,
-      email: email
-    }, {
-      headers: {
-        'userToken': cookies.userToken
-      }
-    })
+    await axios.put(`${url}/api/customer/updateStatus/${id}`)
       .then(res => {
         notification.success({
           message: 'Success',
@@ -76,34 +73,33 @@ const AllUsers = () => {
       .catch(err => {
         console.log(err)
       })
-    setShowEditModal(false);
-  }
+
+  };
+
   const handleEditCancel = () => {
     setShowEditModal(false);
   };
   useEffect(() => {
     const fetchUsers = async () => {
-      const response = await axios.get(`${url}/api/users/all`, {
-        headers: {
-          'userToken': cookies.userToken
-        }
-      })
-      setUsers(response.data.users)
+      const response = await axios.get(`${url}/api/customer/getCustomers`)
+      setUsers(response.data.customers)
     }
     fetchUsers()
   }, [users])
 
   return (
     <Layout>
-      <div className='text-center fw-bold my-3' style={{ fontSize: '40px' }}>Users</div>
+      <div className='text-center fw-bold my-3' style={{ fontSize: '40px' }}>Customers</div>
       <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">firstName</th>
-            <th scope="col">lastName</th>
+            <th scope="col">Name</th>
             <th scope="col">Email</th>
-            <th scope="col">Edit</th>
+            <th scope="col">Gender</th>
+            <th scope="col">age</th>
+            <th scope="col">Status</th>
+            <th scope="col">Chanage Status</th>
             <th scope="col">Delete</th>
           </tr>
         </thead>
@@ -111,11 +107,17 @@ const AllUsers = () => {
           {users.map((user, index) => (
             <tr key={user._id}>
               <th scope="row">{index + 1}</th>
-              <td>{user.firstName}</td>
-              <td>{user.lastName}</td>
+              <td>{user.name}</td>
               <td>{user.email}</td>
+              <td>{user.gender}</td>
+              <td>{calculateAge(user.dateOfBirth)}</td>
+              <td>
+                <Badge bg={user.status=="active" ? (`success`) : (`danger`)}>
+                  {user.status}
+                </Badge>
+              </td>
               <td><Button
-                icon={<EditOutlined />}
+                icon={<FaExchangeAlt size={25} />}
                 onClick={() => { handleEditClick(user._id) }}
               /></td>
               <td><Button
@@ -139,23 +141,22 @@ const AllUsers = () => {
       </Modal>
       <Modal
         visible={showEditModal}
-        title="Updating the User"
-        onOk={handleUpdate}
+        title="Updating the Customer"
+        onOk={handleEditCancel}
         onCancel={handleEditCancel}
       >
-
         <div>
           <div className="mb-3">
-            <label for="firstName" className="form-label">First Name</label>
-            <input type="text" className="form-control" id="firstName" onChange={(e)=>{setFName(e.target.value)}} value={fName} />
+            <label for="firstName" className="form-label">Name</label>
+            <input type="text" className="form-control" id="firstName" onChange={(e) => { setName(e.target.value) }} value={name} />
           </div>
           <div className="mb-3">
-            <label for="firstName" className="form-label">Last Name</label>
-            <input type="text" className="form-control" id="firstName" onChange={(e)=>{setLName(e.target.value)}} value={lName} />
+            <label className="form-label">Email</label>
+            <input type="email" className="form-control" onChange={(e) => { email(e.target.value) }} value={email} />
           </div>
           <div className="mb-3">
             <label for="firstName" className="form-label">Email</label>
-            <input type="text" className="form-control" id="firstName" onChange={(e)=>{setEmail(e.target.value)}} value={email} />
+            <input type="text" className="form-control" id="firstName" onChange={(e) => { setEmail(e.target.value) }} value={email} />
           </div>
         </div>
       </Modal>

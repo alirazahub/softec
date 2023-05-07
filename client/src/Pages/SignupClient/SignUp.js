@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { DatePicker, Form, Input, Button, notification, Select } from 'antd';
 import dayjs from 'dayjs';
 import './signup.css'
 import { url } from '../../key'
 import axios from 'axios'
-import { json } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
-export default function SignUp() {
-    const nameRef = useRef(null);
+export default function SignUp({ setIsAdmin, isAdmin }) {
+    // eslint-disable-next-line
+    const [cookies, setCookie, removeCookie] = useCookies(['customerToken']);
     const emailRef = useRef(null);
-    const passwordRef = useRef(null);
-    const dobRef = useRef(null);
     const genderRef = useRef(null);
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -24,24 +23,55 @@ export default function SignUp() {
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
     const [form] = Form.useForm();
 
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const values = {
+            email: emailLogin,
+            password: passwordLogin
+        }
+        if (isAdmin) {
+            try {
+                const res = await axios.post(`${url}/api/admin/login`, values)
+                setCookie('adminToken', res.data.adminToken, { path: '/' });
+                notification.success({
+                    message: 'Success',
+                    description: 'Login successfully',
+                    placement: 'bottomRight'
+                })
+            } catch (error) {
+                notification.error({
+                    message: 'Error',
+                    description: error.message,
+                    placement: 'bottomRight'
+                })
+            }
+        } else {
+            try {
+                const res = await axios.post(`${url}/api/customer/login`, values)
+                setCookie('customerToken', res.data.customerToken, { path: '/' });
+                notification.success({
+                    message: 'Success',
+                    description: 'Login successfully',
+                    placement: 'bottomRight'
+                })
+            } catch (error) {
+                notification.error({
+                    message: 'Error',
+                    description: error.message,
+                    placement: 'bottomRight'
+                })
+            }
+        }
+    }
     const handleRegister = async () => {
-
-        // try {
-        //     const values = await form.validateFields();
-        //     alert(values);
-
-        // } catch (error) {
-        //     alert(error);
-        // }
-
         const values = {
             name: name,
             email: email,
             password: password,
-            dob: dob,
+            dateOfBirth: dob,
             gender: gender,
         }
-
         try {
             await axios.post(`${url}/api/customer/addCustomer`, values)
             notification.success({
@@ -50,13 +80,15 @@ export default function SignUp() {
                 placement: 'bottomRight'
             })
         } catch (error) {
-            console.log(error)
             notification.error({
                 message: 'Error',
                 description: error.message,
                 placement: 'bottomRight'
             })
         }
+    }
+    const handleCheckChange = (e) => {
+        setIsAdmin(e.target.checked)
     }
     return (
         <div className="contanier mt-4">
@@ -72,8 +104,8 @@ export default function SignUp() {
                         <input className="input" type="password" name="password" placeholder="Password" required=""
                             onChange={(e) => setPasswordLogin(e.target.value)} value={passwordLogin}
                         />
-                        <button className='mt-3 lgBtn'
-                            onClick={handleLogin}
+                        <input type="checkbox" onChange={e => handleCheckChange(e)}></input>
+                        <button className='mt-3 lgBtn' type="submit" onClick={handleLogin}
                         >Log in</button>
                     </form>
                 </div>
@@ -81,7 +113,6 @@ export default function SignUp() {
                     <label className="text-center" for="chk" aria-hidden="true">Register</label>
                     <Form className="form"
                         form={form}
-                        onFinish={console.log("first")}
                         scrollToFirstError>
                         <Form.Item
                             label="Name"
@@ -144,7 +175,7 @@ export default function SignUp() {
                             }>
                             <Input.Password style={{ width: 210 }} onChange={(e) => setPassword(e.target.value)} required />
                         </Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button lgBtn" onClick={handleRegister}>
+                        <Button type="primary" className="login-form-button lgBtn" onClick={handleRegister}>
                             Register
                         </Button>
                     </Form>

@@ -1,12 +1,9 @@
-import {
-  AppstoreOutlined,
-  ShopOutlined,
-  ShoppingCartOutlined,
-} from "@ant-design/icons";
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
+import { FaUserFriends,FaProjectDiagram } from "react-icons/fa";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { BsFillCartCheckFill } from "react-icons/bs";
+import { MdDashboard } from "react-icons/md";
 function SideMenu() {
   const location = useLocation();
   const [selectedKeys, setSelectedKeys] = useState("/");
@@ -30,18 +27,24 @@ function SideMenu() {
         items={[
           {
             label: "Dashbaord",
-            icon: <AppstoreOutlined />,
-            key: "/admin-dashboard",
+          icon: <MdDashboard size={20}/>,
+            key: "/dashboard",
           },
           {
-            label: "Users",
-            key: "/users",
-            icon: <ShopOutlined />,
+            label: "Manage Customers",
+            key: "/customers",
+            icon: <FaUserFriends size={20} />,
           },
           {
-            label: "Categories",
-            key: "/categories",
-            icon: <ShoppingCartOutlined />,
+            label: "Manage Products",
+            key: "/products",
+            icon: < FaProjectDiagram size={20}/>,
+          }
+          ,
+          {
+            label: "Manage Orders",
+            key: "/orders",
+            icon: < BsFillCartCheckFill size={20}/>,
           },
         ]}
       ></Menu>
