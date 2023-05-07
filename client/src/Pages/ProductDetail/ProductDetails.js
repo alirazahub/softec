@@ -42,7 +42,7 @@ export default function ProductDetails(props) {
                         <AiFillStar color='yellow' />
                         <AiFillStar color='yellow' />
                         <AiFillStar color='yellow' />
-                        <p>{calculateAverageRating(card.reviews)}</p>
+                        <p>3</p>
                     </div>
                 </div>
             </div>

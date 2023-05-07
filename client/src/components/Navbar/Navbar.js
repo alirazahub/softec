@@ -59,7 +59,8 @@ export default function Navbar() {
                         </li>
                     </ul>
                 </div>
-                {<Link to={"/login"} class={`btn btn-danger fw-bold ${signRet}`}>Sign In</Link>}
+                {<Link to={"/login"} class={`btn btn-danger fw-bold ${signRet}`}><FaShoppingCart/></Link>}
+                
             </nav>
         </div>
     )
