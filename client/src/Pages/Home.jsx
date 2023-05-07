@@ -3,16 +3,10 @@ import Carousel from '../components/Carousel'
 import Section from '../components/Section'
 import axios from 'axios'
 import { url } from '../key'
+import { cardsData } from '../data'
 
 function Home() {
-    const [cardsData, setCardsData] = useState([])
-    useEffect(() => {
-        const fetchData = async () => {
-            const res = await axios.get(`${url}/api/product/getAllProductsAndRatings`)
-            setCardsData(res.data)
-        }
-        fetchData();
-    }, [cardsData])
+    
 
 
     return (
