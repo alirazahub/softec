@@ -14,8 +14,9 @@ import { url } from './key'
 const App = () => {
   // eslint-disable-next-line
   const [cookies, setCookie, removeCookie] = useCookies(['customerToken', 'adminToken']);
+  // eslint-disable-next-line
   const [customer, setCustomer] = useState({})
- const [isAdmin, setIsAdmin] = useState(false)
+ const [isAdmin, setIsAdmin] = useState(true)
 
   useEffect(() => {
     const getProfiles = async () => {

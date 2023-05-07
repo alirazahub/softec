@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import { Card } from 'antd';
 import { FaHeart } from 'react-icons/fa';
 
@@ -6,10 +6,6 @@ const { Meta } = Card;
 
 function ItemCard({ item }) {
     const [hovered, setHovered] = useState(false);
-
-    useEffect(() => {
-        console.log(item);
-    }, []);
 
     return (
         <div className="m-2">

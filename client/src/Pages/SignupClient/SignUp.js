@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import { DatePicker, Form, Input, Button, notification, Select } from 'antd';
 import dayjs from 'dayjs';
 import './signup.css'
@@ -9,10 +9,7 @@ import { useCookies } from 'react-cookie';
 export default function SignUp({ setIsAdmin, isAdmin }) {
     // eslint-disable-next-line
     const [cookies, setCookie, removeCookie] = useCookies(['customerToken']);
-    const nameRef = useRef(null);
     const emailRef = useRef(null);
-    const passwordRef = useRef(null);
-    const dobRef = useRef(null);
     const genderRef = useRef(null);
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
