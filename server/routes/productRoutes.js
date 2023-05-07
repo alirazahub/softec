@@ -104,6 +104,20 @@ router.get('/getAllProducts', verifyCustomer, asyncHandler(async (req, res) => {
     }
 }))
 
+// get all products only
+router.get('/getAllProductsOnly', asyncHandler(async (req, res) => {
+    try {
+        const products = await Product.find({})
+        if (products) {
+            res.status(200).json(products)
+        } else {
+            res.status(400).json({ message: "No products found" })
+        }
+    } catch (error) {
+        res.status(400).json({ message: error.message })
+    }
+}))
+
 
 // add to wishlist if not already added and remove from wishlist if already added
 router.post('/addToWishlist/:prodId', verifyCustomer, asyncHandler(async (req, res) => {

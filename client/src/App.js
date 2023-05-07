@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Home from './Pages/Home'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer.js'
@@ -8,7 +8,35 @@ import AdminSideMenu from "./components/Dashboard/AdminSideMenu";
 import PageContent from "./components/Dashboard/PageContent";
 import { Route, Routes } from 'react-router-dom'
 import SignUp from './Pages/SignupClient/SignUp'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
+import { url } from './key'
 const App = () => {
+  // eslint-disable-next-line
+  const [cookies, setCookie, removeCookie] = useCookies(['customerToken', 'adminToken']);
+  const [customer, setCustomer] = useState({})
+  const [admin, setAdmin] = useState({})
+
+  useEffect(() => {
+    const getProfiles = async () => {
+      const  res = await axios.get(`${url}/api/customer/profile`, {
+        headers: {
+          'customerToken': cookies.customerToken,
+        }
+      })
+      setCustomer(res.data)
+    }
+    getProfiles()
+    const getAdminProfiles = async () => {
+      const  res = await axios.get(`${url}/api/admin/profile`, {
+        headers: {
+          'adminToken': cookies.customerToken,
+        }
+      })
+      setCustomer(res.data)
+    }
+    getAdminProfiles();
+  }, [cookies])
   let isAdmin = false
   return (
     <>

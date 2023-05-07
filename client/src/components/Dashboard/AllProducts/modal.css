@@ -1,6 +1,5 @@
 .addProcCom{
     width: 600px;
-    border: 1px solid #000;
     border-radius: 6px;
     display: flex;
     flex-direction: column;
@@ -27,6 +26,7 @@
 .addProcCom .addprocform .inputfield label{
     font-size: 18px;
     font-weight: 500;
+    color: #000;
 }
 .addProcCom .addprocform .inputfield input{
     width: 60%;

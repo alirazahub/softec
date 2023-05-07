@@ -4,9 +4,11 @@ import dayjs from 'dayjs';
 import './signup.css'
 import { url } from '../../key'
 import axios from 'axios'
-import { json } from 'react-router-dom';
+import { useCookies } from 'react-cookie';
 
 export default function SignUp() {
+    // eslint-disable-next-line
+    const [cookies, setCookie, removeCookie] = useCookies(['customerToken']);
     const nameRef = useRef(null);
     const emailRef = useRef(null);
     const passwordRef = useRef(null);
@@ -24,63 +26,53 @@ export default function SignUp() {
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
     const [form] = Form.useForm();
 
-    const handleLogin = async () => {
 
-        // const values = {
-        //     email: emailLogin,
-        //     password: passwordLogin
-        // }
-        // try {
-        //     const res = await axios.post(`${url}/api/customer/login`, values)
-        //     console.log(res)
-        //     localStorage.setItem('token', res.data.token)
-        //     localStorage.setItem('user', JSON.stringify(res.data.user))
-        //     window.location.href = '/'
-        // } catch (error) {
-        //     console.log(error)
-        //     notification.error({
-        //         message: 'Error',
-        //         description: error.message,
-        //         placement: 'bottomRight'
-        //     })
-        // }
-    }
-
-    const handleRegister = async () => {
-
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        const values = {
+            email: emailLogin,
+            password: passwordLogin
+        }
         try {
-            axios.get(`${url}/api/product/getAllProducts`)
-                .then(res => {
-                    alert(res.data)
-                })
+            const res = await axios.post(`${url}/api/customer/login`, values)
+            setCookie('customerToken', res.data.customerToken, { path: '/' });
+            notification.success({
+                message: 'Success',
+                description: 'Login successfully',
+                placement: 'bottomRight'
+            })
+        } catch (error) {
+            console.log(error)
+            notification.error({
+                message: 'Error',
+                description: error.message,
+                placement: 'bottomRight'
+            })
         }
-        catch (err) {
-            console.log(err)
+    }
+    const handleRegister = async () => {
+        const values = {
+            name: name,
+            email: email,
+            password: password,
+            dateOfBirth: dob,
+            gender: gender,
         }
-
-        //     const values = {
-        //         name: name,
-        //         email: email,
-        //         password: password,
-        //         dob: dob,
-        //         gender: gender,
-        //     }
-
-        //     try {
-        //         await axios.post(`${url}/api/customer/addCustomer`, values)
-        //         notification.success({
-        //             message: 'Success',
-        //             description: 'User created successfully',
-        //             placement: 'bottomRight'
-        //         })
-        //     } catch (error) {
-        //         console.log(error)
-        //         notification.error({
-        //             message: 'Error',
-        //             description: error.message,
-        //             placement: 'bottomRight'
-        //         })
-        //     }
+        try {
+            await axios.post(`${url}/api/customer/addCustomer`, values)
+            notification.success({
+                message: 'Success',
+                description: 'User created successfully',
+                placement: 'bottomRight'
+            })
+        } catch (error) {
+            console.log(error)
+            notification.error({
+                message: 'Error',
+                description: error.message,
+                placement: 'bottomRight'
+            })
+        }
     }
     return (
         <div className="contanier mt-4">
@@ -96,8 +88,7 @@ export default function SignUp() {
                         <input className="input" type="password" name="password" placeholder="Password" required=""
                             onChange={(e) => setPasswordLogin(e.target.value)} value={passwordLogin}
                         />
-                        <button className='mt-3 lgBtn'
-                            onClick={handleLogin}
+                        <button className='mt-3 lgBtn' type="submit" onClick={handleLogin}
                         >Log in</button>
                     </form>
                 </div>
@@ -105,7 +96,6 @@ export default function SignUp() {
                     <label className="text-center" for="chk" aria-hidden="true">Register</label>
                     <Form className="form"
                         form={form}
-                        onFinish={console.log("onFinish")}
                         scrollToFirstError>
                         <Form.Item
                             label="Name"
