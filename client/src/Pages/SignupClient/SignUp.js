@@ -18,6 +18,9 @@ export default function SignUp() {
     const [dob, setDob] = useState()
     const [gender, setGender] = useState('')
 
+    const [emailLogin, setEmailLogin] = useState('')
+    const [passwordLogin, setPasswordLogin] = useState('')
+
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
     const [form] = Form.useForm();
 
@@ -63,9 +66,15 @@ export default function SignUp() {
                 <div className="login">
                     <form className="form">
                         <label for="chk" aria-hidden="true">Log in</label>
-                        <input className="input" type="email" name="email" placeholder="Email" required="" />
-                        <input className="input" type="password" name="password" placeholder="Password" required="" />
-                        <button className='mt-3 lgBtn'>Log in</button>
+                        <input className="input" type="email" name="email" placeholder="Email" required=""
+                            onChange={(e) => setEmailLogin(e.target.value)} value={emailLogin}
+                        />
+                        <input className="input" type="password" name="password" placeholder="Password" required=""
+                            onChange={(e) => setPasswordLogin(e.target.value)} value={passwordLogin}
+                        />
+                        <button className='mt-3 lgBtn'
+                            onClick={handleLogin}
+                        >Log in</button>
                     </form>
                 </div>
                 <div className="register">
@@ -103,7 +112,7 @@ export default function SignUp() {
                         >
                             <Select
                                 ref={genderRef}
-                                defaultValue="lucy"
+                                defaultValue="Choose Gender"
                                 onSelect={(value) => { setGender(value) }}
                                 options={[
                                     {

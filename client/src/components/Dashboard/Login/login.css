@@ -1,0 +1,83 @@
+
+.loginAdmin {
+  width: 100vw;
+  height: 100vh;
+  background: #fff;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-left: 50px;
+}
+.loginAdmin .LoginForm {
+  width: 500px;
+  height: 500px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.loginAdmin .LoginForm .formfield{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.loginAdmin .LoginForm .formfield label{
+    font-size: 20px;
+    font-weight: 500;
+}
+.loginAdmin .LoginForm .formfield input{
+    width: 50%;
+    height: 40px;
+    border: 1px solid #000;
+    padding-left: 10px;
+    font-size: 18px;
+}
+
+.loginAdmin .heading{
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+input:focus {
+    outline: none;
+}
+
+
+.loginAdmin .LoginForm  button{
+    width: 50%;
+    height: 40px;
+    border: none;
+    background: #000;
+    color: #fff;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.loginAdmin .LoginForm  button:hover{
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+}
+
+@media screen and (max-width: 500px){
+    .loginAdmin{
+        padding-left: 0px;
+    }
+    .loginAdmin .LoginForm{
+        width: 100%;
+        height: 100%;
+        padding: 50px;
+    }
+    .loginAdmin .LoginForm .formfield input{
+        width: 100%;
+    }
+    .loginAdmin .LoginForm  button{
+        width: 100%;
+    }
+}
+    
